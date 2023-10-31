@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS flex-flow_db;
+CREATE DATABASE flex-flow_db;
