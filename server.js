@@ -1,40 +1,46 @@
-const express = require('express');
-const exphbs  = require('express-handlebars');
 const path = require('path');
+const express = require('express');
+const session = require('express-session');
+const exphbs = require('express-handlebars');
+const routes = require('./controllers');
+const helpers = require('./utils/helpers');
+
+const sequelize = require('./config/connection');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express();
-const port = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3001;
 
-// Set up Handlebars as the view engine
-app.engine('handlebars', exphbs());
-app.set('view engine', 'handlebars');
+// Set up Handlebars.js engine with custom helpers
+const hbs = exphbs.create({ helpers });
 
-// Define the path to your views directory
-app.set('views', path.join(__dirname, 'views'));
-
-// Serve static assets from the 'public' directory
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Sample data (replace with actual data as needed)
-const sampleData = {
-    user: {
-        username: 'JohnDoe',
-        email: 'john@example.com',
-    }
+const sess = {
+  secret: 'Super secret secret',
+  cookie: {
+    maxAge: 300000,
+    httpOnly: true,
+    secure: false,
+    sameSite: 'strict',
+  },
+  resave: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+    db: sequelize
+  })
 };
 
-// Define routes
-app.get('/', (req, res) => {
-    // Render the home.handlebars template with the sample data
-    res.render('home', sampleData);
-});
+app.use(session(sess));
 
-app.get('/profile', (req, res) => {
-    // Render the profile.handlebars template with the sample data
-    res.render('profile', sampleData);
-});
+// Inform Express.js on which template engine to use
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
 
-// Start the server
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(routes);
+
+sequelize.sync({ force: false }).then(() => {
+  app.listen(PORT, () => console.log('Now listening'));
 });
