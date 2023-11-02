@@ -1,4 +1,4 @@
-// models/Cardio.js
+// models/cardio.js
 
 module.exports = (sequelize, DataTypes) => {
     const Cardio = sequelize.define('Cardio', {
