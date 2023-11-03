@@ -1,22 +1,64 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>FlexFlow - User Profile</title>
+ <style>
+        body {
+            background-image: url('../public/assets/images/bg4.jpg'); 
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
 </head>
-<body>
-    {{> layouts/main}}
+<body class="bg-black text-white">
     
-    {{> partials/header}}
 
-    <div class="container">
-        <h1>User Profile</h1>
-        <div class="user-info">
-            <p><strong>Username:</strong> {{user.username}}</p>
-            <p><strong>Email:</strong> {{user.email}}</p>
+    <!-- Profile Customization Section -->
+    <section class="p-8">
+        <div class="container mx-auto max-w-md">
+            <h1 class="text-3xl font-extrabold text-white mb-4 ml-12">Customize Your Profile</h1>
+            <form class="space-y-4">
+                <!-- Profile Picture Upload (Clickable Image) -->
+                <div class="text-center">
+                    <label for="profile-picture" class="block text-lg font-semibold text-white mb-2">Profile Picture</label>
+                    <label for="profile-picture" class="cursor-pointer">
+                        <div class="w-36 h-36 rounded-full overflow-hidden mx-auto">
+                            <img id="selected-profile-picture" class="w-full h-full object-cover" src="../public/assets/images/profile pic filler.png" alt="Profile Picture" onclick="uploadProfilePicture()">
+                        </div>
+                    </label>
+                    <input type="file" id="profile-picture" name="profile-picture" accept="image/*" class="hidden" onchange="updateProfilePicture(this)">
+                </div>
+
+                <!-- Height Input -->
+                <div>
+                    <label for="height" class="block text-lg font-semibold text-white mb-2">Height (in inches)</label>
+                    <input type="number" id="height" name="height" class="w-full bg-white text-black px-4 py-2 rounded-full focus:outline-none" placeholder="Enter your height">
+                </div>
+
+                <!-- Weight Input -->
+                <div>
+                    <label for="weight" class="block text-lg font-semibold text-white mb-2">Weight (in lbs)</label>
+                    <input type="number" id="weight" name="weight" class="w-full bg-white text-black px-4 py-2 rounded-full focus:outline-none" placeholder="Enter your weight">
+                </div>
+
+                <!-- Age Input -->
+                <div>
+                    <label for="age" class="block text-lg font-semibold text-white mb-2">Age</label>
+                    <input type="number" id="age" name="age" class="w-full bg-white text-black px-4 py-2 rounded-full focus:outline-none" placeholder="Enter your age">
+                </div>
+
+                <!-- Fitness Goals Input -->
+                <div>
+                    <label for "fitness-goals" class="block text-lg font-semibold text-white mb-2" > Fitness Goals </label>
+                    <textarea id = "fitness-goals" name = "fitness-goals" class = "w-full bg-white text-black px-4 py-2 rounded-lg focus:outline-none" rows = "3" placeholder = "Describe your fitness goals" ></textarea>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-semibold text-white">BMI Calculator</h2>
+                    <p class="text-white mb-5">BMI (Body Mass Index) is a measure of body fat based on your height and weight.</p>
+                    <button type="button" onclick="calculateBMI()" class="bg-white text-black px-4 py-2 rounded-full hover:bg-blue-700">Calculate BMI</button>
+                    <p id="bmi-result" class="text-white mt-4"></p>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="button" class="bg-white text-black px-4 py-2 rounded-full hover:bg-blue-700">Save Profile</button>
+            </form>
         </div>
-        <a href="/logout">Logout</a>
-    </div>
-
-    {{> partials/footer}}
+    </section>
+<script src="/javascript/profile.js"></script>
 </body>
-</html>

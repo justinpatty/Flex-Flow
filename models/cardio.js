@@ -20,17 +20,4 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
-  Cardio.associate = (models) => {
-    Cardio.belongsTo(models.User, {
-      foreignKey: 'userId', 
-      onDelete: 'CASCADE', 
-    });
-
-    Cardio.belongsTo(models.Log, {
-      foreignKey: 'logId', 
-      onDelete: 'CASCADE', 
-    });
-  };
-
-  return Cardio;
 };
