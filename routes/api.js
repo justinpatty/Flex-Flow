@@ -1,12 +1,13 @@
 //var URL = "https://api.api-ninjas.com/v1";
 //var Key = "wP5vqzkikC7Gw3IK1nXbDg==bQIOoLezyk0YDbm4";
 
-var workOutSelector = "";
-var apiUrl = "https://api.api-ninjas.com/v1/exercises?muscle=";
+
 var apiKey = "wP5vqzkikC7Gw3IK1nXbDg==bQIOoLezyk0YDbm4";
 
 function exercises(workOutSelector) {
-    fetch(apiUrl + workOutSelector , {
+    var apiUrl = ("https://api.api-ninjas.com/v1/exercises?" + workOutSelector);
+    console.log(apiUrl);
+    fetch(apiUrl , {
         method: "GET",
         headers: {
             "X-Api-Key": apiKey,
@@ -30,13 +31,14 @@ function exercises(workOutSelector) {
         });
 }
 
-exercises(workOutSelector);
+exercises("type=cardio");
 
 function workouts(data) {
-    var main = document.querySelector("main.cards");
+    var main = document.querySelector("#exercise-cards");
     main.innerHTML = "";
 
     main.setAttribute("class", "w-full md:w-1/3 mb-4 z-10 mt-5");
+
     for (var i = 0; i < data.length; i++) {
         console.log(i);
         
@@ -84,10 +86,12 @@ function workouts(data) {
 
 }
 
+
 document.querySelector('main').addEventListener('click',(event)=>{
     if (event.target.hasAttribute("data-exercise")) {
-        console.log(event.target.getAttribute("data-exercise"))
+      var myWorkoutPlan =("name=" + event.target.getAttribute("data-exercise"));
+        exercises(myWorkoutPlan);
+
     }
 }) 
 
-var myWorkoutPlan 
