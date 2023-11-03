@@ -14,22 +14,22 @@ const seedDatabase = async () => {
     returning: true,
   });
 
-  for (const Cardio of cardioData) {
+  for (const cardio of cardioData) {
     await Cardio.create({
-      ...Cardio,
-      user_id: users[Math.floor(Math.random() * users.length)].id,
+      ...cardio,
+      userId: users[Math.floor(Math.random() * users.length)].id,
     });
   }
-  for (const Log of logData) {
+  for (const log of logData) {
     await Log.create({
-      ...Log,
-      user_id: users[Math.floor(Math.random() * users.length)].id,
+      ...log,
+      userId: users[Math.floor(Math.random() * users.length)].id,
     });
   }
-  for (const WeightTraining of weightTrainingData) {
+  for (const weightTraining of weightTrainingData) {
     await WeightTraining.create({
-      ...WeightTraining,
-      user_id: users[Math.floor(Math.random() * users.length)].id,
+      ...weightTraining,
+      userId: users[Math.floor(Math.random() * users.length)].id,
     });
   }
 

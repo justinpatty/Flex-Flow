@@ -1,7 +1,12 @@
 // models/WeightTraining.js
+const { Model, DataTypes } = require('sequelize');
+const bcrypt = require('bcrypt');
+const sequelize = require('../config/connection');
 
-module.exports = (sequelize, DataTypes) => {
-  const WeightTraining = sequelize.define('WeightTraining', {
+class WeightTraining extends Model {
+}
+
+WeightTraining.init({
     title: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -18,6 +23,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+  },
+  {sequelize,
+    timestamps: false,
+    freezeTableName: true,
+    underscored: true,
+    modelName: 'weighttraining'
   });
 
-};
+
+  module.exports = WeightTraining;

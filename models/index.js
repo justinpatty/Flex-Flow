@@ -1,54 +1,54 @@
 const User = require('./user');
-const Cardio = require('./Cardio');
+const Cardio = require('./cardio');
 const Log = require('./log');
 const WeightTraining = require('./weightTraining');
 
 User.hasMany(Log, {
-  foreignKey: 'user_id',
-  onDelete: 'CASCADE'
+    foreignKey: 'userId',
+    onDelete: 'CASCADE'
 });
 
 User.hasMany(Cardio, {
     foreignKey: 'userId',
     onDelete: 'CASCADE'
-  });
+});
 
 User.hasMany(WeightTraining, {
     foreignKey: 'userId',
     onDelete: 'CASCADE'
-  });
+});
 Log.belongsTo(User, {
     foreignKey: 'userId',
     onDelete: 'CASCADE'
-  });
-  Log.hasMany(Cardio, {
+});
+Log.hasMany(Cardio, {
     foreignKey: 'logId',
     onDelete: 'CASCADE'
-  })
-  Log.hasMany(WeightTraining, {
+})
+Log.hasMany(WeightTraining, {
     foreignKey: 'logId',
     onDelete: 'CASCADE'
-  })
-  Cardio.belongsTo(User, {
+})
+Cardio.belongsTo(User, {
     foreignKey: 'userId',
     onDelete: 'CASCADE'
-  });
-  Cardio.belongsTo(Log, {
+});
+Cardio.belongsTo(Log, {
     foreignKey: 'logId',
     onDelete: 'CASCADE'
-  });
-  WeightTraining.belongsTo(User, {
+});
+WeightTraining.belongsTo(User, {
     foreignKey: 'userId',
     onDelete: 'CASCADE'
-  });
-  WeightTraining.belongsTo(Log, {
+});
+WeightTraining.belongsTo(Log, {
     foreignKey: 'userId',
     onDelete: 'CASCADE'
-  });
+});
 
- 
 
-  
+
+
 
 module.exports = { User, Log, Cardio, WeightTraining };
 
