@@ -1,0 +1,20 @@
+[
+    {
+      "title": "Music Near Me",
+      "description": "A mobile app that will send you notifications whenever a concert is playing in your area.",
+      "duration": 5000,
+      "distance": 5000
+    },
+    {
+        "title": "Music Near Me",
+      "description": "A mobile app that will send you notifications whenever a concert is playing in your area.",
+      "duration": 5000,
+      "distance": 5000
+    },
+    {
+        "title": "Music Near Me",
+        "description": "A mobile app that will send you notifications whenever a concert is playing in your area.",
+        "duration": 5000,
+        "distance": 5000
+    }
+  ]
