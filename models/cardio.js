@@ -1,7 +1,12 @@
 // models/Cardio.js
+const { Model, DataTypes } = require('sequelize');
+const bcrypt = require('bcrypt');
+const sequelize = require('../config/connection');
 
-module.exports = (sequelize, DataTypes) => {
-  const Cardio = sequelize.define('Cardio', {
+class Cardio extends Model {
+}
+
+Cardio.init({
     title: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -18,6 +23,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
+  },
+  {sequelize,
+    timestamps: false,
+    freezeTableName: true,
+    underscored: true,
+    modelName: 'cardio'
   });
 
-};
+  module.exports = Cardio;
