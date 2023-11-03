@@ -2,11 +2,11 @@
 //var Key = "wP5vqzkikC7Gw3IK1nXbDg==bQIOoLezyk0YDbm4";
 
 var workOutSelector = "";
-var apiUrl = "https://api.api-ninjas.com/v1/exercises?muscle=" + workOutSelector;
+var apiUrl = "https://api.api-ninjas.com/v1/exercises?muscle=";
 var apiKey = "wP5vqzkikC7Gw3IK1nXbDg==bQIOoLezyk0YDbm4";
 
 function exercises(workOutSelector) {
-    fetch(apiUrl, {
+    fetch(apiUrl + workOutSelector , {
         method: "GET",
         headers: {
             "X-Api-Key": apiKey,
@@ -75,11 +75,19 @@ function workouts(data) {
         a.textContent = "Learn More";
         div3.appendChild(a)
 
-        var a2 = document.createElement("a");
-        a2.setAttribute("href", "#");
-        a2.setAttribute("class", "bg-blue-800 text-white px-4 py-2 rounded-full mt-2 inline-block hover:bg-blue-900");
-        a2.textContent = "Add to Plan";
-        div3.appendChild(a2)
+        var button = document.createElement("button");
+        button.setAttribute("data-exercise", data[i].name);
+        button.setAttribute("class", "bg-blue-800 text-white px-4 py-2 rounded-full mt-2 inline-block hover:bg-blue-900");
+        button.textContent = "Add to Plan";
+        div3.appendChild(button)
    }
 
 }
+
+document.querySelector('main').addEventListener('click',(event)=>{
+    if (event.target.hasAttribute("data-exercise")) {
+        console.log(event.target.getAttribute("data-exercise"))
+    }
+}) 
+
+var myWorkoutPlan 
