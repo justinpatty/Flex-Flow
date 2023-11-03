@@ -1,4 +1,4 @@
-const Log = require('../../models/Log');
+const {Log} = require('../../models');
 
 const getLogs = async (req, res) => {
   try {
@@ -20,7 +20,4 @@ const createLog = async (req, res) => {
   }
 };
 
-module.exports = {
-  getLogs,
-  createLog,
-};
+module.exports = router;
