@@ -1,74 +1,74 @@
-// models/User.js
+const { Model, DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');
+const sequelize = require('../config/connection');
 
-module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
-    userId: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    username: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    age: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
-    weight: {
-      type: DataTypes.FLOAT,
-      allowNull: true,
-    },
-    height: {
-      type: DataTypes.FLOAT,
-      allowNull: true,
-    },
-    biography: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
-    profilePicture: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    bmi: {
-      type: DataTypes.FLOAT,
-      allowNull: true,
-    },
-  });
+class User extends Model {
+  checkPassword(loginPw) {
+    return bcrypt.compareSync(loginPw, this.password);
+  }
+}
 
-  User.associate = (models) => {
-    User.hasMany(models.Log, {
-      foreignKey: 'userId', 
-      onDelete: 'CASCADE', 
-    });
+User.init({
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  username: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  age: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+  weight: {
+    type: DataTypes.FLOAT,
+    allowNull: true,
+  },
+  height: {
+    type: DataTypes.FLOAT,
+    allowNull: true,
+  },
+  biography: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
+  profilePicture: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  bmi: {
+    type: DataTypes.FLOAT,
+    allowNull: true,
+  },
+},
+{
+  hooks: {
+    beforeCreate: async (newUserData) => {
+      newUserData.password = await bcrypt.hash(newUserData.password, 10);
+      return newUserData;
+    },
+    beforeUpdate: async (updatedUserData) => {
+      updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
+      return updatedUserData;
+    },
+  },
+  sequelize,
+  timestamps: false,
+  freezeTableName: true,
+  modelName: 'user'
+});
 
-    User.hasMany(models.Cardio, {
-      foreignKey: 'userId', 
-      onDelete: 'CASCADE', 
-    });
-
-    User.hasMany(models.WeightTraining, {
-      foreignKey: 'userId', 
-      onDelete: 'CASCADE', 
-    });
-  };
-
-  User.beforeCreate(async (user) => {
-    const saltRounds = 10;
-    user.password = await bcrypt.hash(user.password, saltRounds);
-  });
-
-  return User;
-};
+module.exports = User;

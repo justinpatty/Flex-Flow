@@ -1,6 +1,6 @@
 const router = require('express').Router();
-// const { Project, User } = require('../models');
-// const withAuth = require('../utils/auth');
+const { Project, User } = require('../models/');
+const withAuth = require('../utils/auth');
 // figure out what models we need here
 
 router.get('/', async (req, res) => {
@@ -13,6 +13,18 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/profile',withAuth, async (req, res) => {
+  const userData = await User.findByPk(req.session.user_id, {
+    attributes: { exclude: ['password'] },
+      include: [{ model: Post }],
+  });
+
+  const user = userData.get({ plain: true });
+    res.render('profile', {
+      ...user,
+      logged_in: req.session.logged_in
+    });
+});
 
 //examples of routes from mini project
 // router.get('/project/:id', async (req, res) => {

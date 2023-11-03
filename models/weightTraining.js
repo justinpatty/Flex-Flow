@@ -1,7 +1,12 @@
 // models/WeightTraining.js
+const { Model, DataTypes } = require('sequelize');
+const bcrypt = require('bcrypt');
+const sequelize = require('../config/connection');
 
-module.exports = (sequelize, DataTypes) => {
-  const WeightTraining = sequelize.define('WeightTraining', {
+class WeightTraining extends Model {
+}
+
+WeightTraining.init({
     title: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -18,19 +23,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+  },
+  {sequelize,
+    timestamps: false,
+    freezeTableName: true,
+    underscored: true,
+    modelName: 'weighttraining'
   });
 
-  WeightTraining.associate = (models) => {
-    WeightTraining.belongsTo(models.User, {
-      foreignKey: 'userId', 
-      onDelete: 'CASCADE', 
-    });
 
-    WeightTraining.belongsTo(models.Log, {
-      foreignKey: 'logId', 
-      onDelete: 'CASCADE', 
-    });
-  };
-
-  return WeightTraining;
-};
+  module.exports = WeightTraining;

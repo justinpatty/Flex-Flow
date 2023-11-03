@@ -1,33 +1,27 @@
 // models/Log.js
+const { Model, DataTypes } = require('sequelize');
+const bcrypt = require('bcrypt');
+const sequelize = require('../config/connection');
 
-module.exports = (sequelize, DataTypes) => {
-  const Log = sequelize.define('Log', {
-    title: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
-  });
+class Log extends Model {
+}
 
-  Log.associate = (models) => {
-    Log.belongsTo(models.User, {
-      foreignKey: 'userId', 
-      onDelete: 'CASCADE', 
-    });
+Log.init({
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  description: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
+},
+{sequelize,
+  timestamps: false,
+  freezeTableName: true,
+  underscored: true,
+  modelName: 'log'
+});
 
-    Log.hasMany(models.Cardio, {
-      foreignKey: 'logId', 
-      onDelete: 'CASCADE', 
-    });
 
-    Log.hasMany(models.WeightTraining, {
-      foreignKey: 'logId', 
-      onDelete: 'CASCADE', 
-    });
-  };
-
-  return Log;
-};
+module.exports = Log;
