@@ -14,10 +14,22 @@ const seedDatabase = async () => {
     returning: true,
   });
 
-  for (const project of projectData) {
-    await Project.create({
-      ...project,
-      user_id: users[Math.floor(Math.random() * users.length)].id,
+  for (const cardio of cardioData) {
+    await Cardio.create({
+      ...cardio,
+      userId: users[Math.floor(Math.random() * users.length)].id,
+    });
+  }
+  for (const log of logData) {
+    await Log.create({
+      ...log,
+      userId: users[Math.floor(Math.random() * users.length)].id,
+    });
+  }
+  for (const weightTraining of weightTrainingData) {
+    await WeightTraining.create({
+      ...weightTraining,
+      userId: users[Math.floor(Math.random() * users.length)].id,
     });
   }
 
