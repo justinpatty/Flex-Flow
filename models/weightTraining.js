@@ -20,17 +20,4 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
-  WeightTraining.associate = (models) => {
-    WeightTraining.belongsTo(models.User, {
-      foreignKey: 'userId', 
-      onDelete: 'CASCADE', 
-    });
-
-    WeightTraining.belongsTo(models.Log, {
-      foreignKey: 'logId', 
-      onDelete: 'CASCADE', 
-    });
-  };
-
-  return WeightTraining;
 };

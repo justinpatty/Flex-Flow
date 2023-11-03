@@ -49,27 +49,4 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
-  User.associate = (models) => {
-    User.hasMany(models.Log, {
-      foreignKey: 'userId', 
-      onDelete: 'CASCADE', 
-    });
-
-    User.hasMany(models.Cardio, {
-      foreignKey: 'userId', 
-      onDelete: 'CASCADE', 
-    });
-
-    User.hasMany(models.WeightTraining, {
-      foreignKey: 'userId', 
-      onDelete: 'CASCADE', 
-    });
-  };
-
-  User.beforeCreate(async (user) => {
-    const saltRounds = 10;
-    user.password = await bcrypt.hash(user.password, saltRounds);
-  });
-
-  return User;
 };
