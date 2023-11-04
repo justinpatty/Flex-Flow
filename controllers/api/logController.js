@@ -1,15 +1,15 @@
-const Log = require('../../models/Log');
+const {Log} = require('../../models');
 
-const getLogs = async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const logs = await Log.findAll(); 
     res.json(logs);
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
-};
+})
 
-const createLog = async (req, res) => {
+router.post("/", async (req, res) => {
   const { title, description } = req.body;
   
   try {
@@ -18,9 +18,6 @@ const createLog = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
-};
+})
 
-module.exports = {
-  getLogs,
-  createLog,
-};
+module.exports = router;

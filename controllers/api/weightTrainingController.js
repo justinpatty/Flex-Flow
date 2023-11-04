@@ -1,15 +1,15 @@
-const WeightTraining = require('../../models/WeightTraining');
+const {WeightTraining} = require('../../models/');
 
-const getWeightTrainings = async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const weightTrainings = await WeightTraining.findAll();
     res.json(weightTrainings);
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
-};
+})
 
-const createWeightTraining = async (req, res) => {
+router.post("/", async (req, res) => {
   const { title, description, reps, sets } = req.body;
   
   try {
@@ -18,9 +18,6 @@ const createWeightTraining = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
-};
+})
 
-module.exports = {
-  getWeightTrainings,
-  createWeightTraining,
-};
+module.exports = router;
