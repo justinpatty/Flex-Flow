@@ -1,14 +1,23 @@
-<style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlexFlow Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
         body {
-            background-image: url('/assets/images/gymPic.jpg'); 
+            background-image: url('../public/assets/images/gym\ pic.jpg'); 
             background-size: cover;
             background-repeat: no-repeat;
         }
     </style>
-<div class="flex h-screen justify-center items-center">
+</head>
+<body class="bg-blue-100">
+    <div class="flex h-screen justify-center items-center">
         <div class="w-1/2 p-6 bg-white bg-opacity-90 rounded-lg">
             <div class="text-center">
-                <img src="/assets/images/logoflex.png" alt="Fitness App Logo" class="w-32 h-32 mx-auto">
+                <img src="../public/assets/images/Screenshot 2023-10-31 113554.png " alt="Fitness App Logo" class="w-32 h-32 mx-auto">
                 <h1 class="text-5xl text-blue-700 mt-4">Welcome to FlexFlow</h1>
                 <p class="text-black mt-2 text-xl ">Start your fitness journey now!</p>
             </div>
@@ -64,3 +73,5 @@
             isLoginFormVisible = !isLoginFormVisible;
         });
     </script>
+</body>
+</html>
