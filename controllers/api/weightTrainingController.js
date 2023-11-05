@@ -1,5 +1,4 @@
-const WeightTraining = require('../../models/WeightTraining');
-
+const { WeightTraining } = require('../../models');
 const getWeightTrainings = async (req, res) => {
   try {
     const weightTrainings = await WeightTraining.findAll();
