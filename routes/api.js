@@ -1,13 +1,10 @@
-//var URL = "https://api.api-ninjas.com/v1";
-//var Key = "wP5vqzkikC7Gw3IK1nXbDg==bQIOoLezyk0YDbm4";
 
-
+var workOutSelector = "muscle=";
+var apiUrl = "https://api.api-ninjas.com/v1/exercises?";
 var apiKey = "wP5vqzkikC7Gw3IK1nXbDg==bQIOoLezyk0YDbm4";
 
-function exercises(workOutSelector) {
-    var apiUrl = ("https://api.api-ninjas.com/v1/exercises?" + workOutSelector);
-    console.log(apiUrl);
-    fetch(apiUrl , {
+function exercises(workOutSelector, number) {
+    fetch(apiUrl + workOutSelector , {
         method: "GET",
         headers: {
             "X-Api-Key": apiKey,
@@ -24,14 +21,19 @@ function exercises(workOutSelector) {
         })
         .then(function (data) {
             console.log(data);
-            workouts(data);
+            if (number == 1) {
+                 workouts(data);
+            }
+            if (number == 2) {
+                myWorkoutPlan(data);
+            }
         })
         .catch(function (error) {
             console.error("Error: " + error.message);
         });
 }
 
-exercises("type=cardio");
+exercises(workOutSelector, 1);
 
 function workouts(data) {
     var main = document.querySelector("#exercise-cards");
@@ -89,9 +91,29 @@ function workouts(data) {
 
 document.querySelector('main').addEventListener('click',(event)=>{
     if (event.target.hasAttribute("data-exercise")) {
-      var myWorkoutPlan =("name=" + event.target.getAttribute("data-exercise"));
-        exercises(myWorkoutPlan);
-
+        var names = event.target.getAttribute("data-exercise")
+        console.log("name="+names)
+        exercises("name="+names, 2)
     }
 }) 
 
+function myWorkoutPlan (data){
+
+    var main = document.querySelector("#addedExercise");
+   // main.setAttribute("class", "w-full md:w-1/3 mb-4 z-10 mt-5");
+    
+        var div = document.createElement("div");
+        div.setAttribute( "class","bg-blue-700 p-4 rounded-2xl shadow-lg" );
+        main.appendChild(div);
+
+        var div2 = document.createElement("div");
+        div2.setAttribute("class", "text-white p-4");
+        div.appendChild(div2);
+
+        var h2 = document.createElement("h2");
+        h2.setAttribute("class", "text-2xl font-semibold");
+        // switches between park name and campground name depending on the data
+            h2.textContent = data[0].name;
+        div2.appendChild(h2);
+    
+}

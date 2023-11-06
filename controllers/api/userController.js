@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const bcrypt = require('bcrypt'); 
+const passport = require('passport');
 const { User } = require('../../models');
 
 router.post('/register', async (req, res) => {
@@ -13,54 +13,29 @@ router.post('/register', async (req, res) => {
       password: hashedPassword,
     });
 
-    req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.logged_in = true;
-
-      res.status(200).json(userData);
+    req.login(userData, (err) => {
+      if (err) {
+        res.status(400).json(err);
+      } else {
+        res.status(200).json(userData);
+      }
     });
   } catch (err) {
     res.status(400).json(err);
   }
 });
 
-router.post('/login', async (req, res) => {
-  try {
-    const { username, password } = req.body;
-
-    const userData = await User.findOne({ where: { username } });
-
-    if (!userData) {
-      res.status(400).json({ message: 'Incorrect username or password, please try again' });
-      return;
-    }
-
-    const validPassword = await bcrypt.compare(password, userData.password);
-
-    if (!validPassword) {
-      res.status(400).json({ message: 'Incorrect username or password, please try again' });
-      return;
-    }
-
-    req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.logged_in = true;
-
-      res.json({ user: userData, message: 'You are now logged in!' });
-    });
-  } catch (err) {
-    res.status(400).json(err);
-  }
+router.post('/login', passport.authenticate('local'), (req, res) => {
+ 
+  res.json({ user: req.user, message: 'You are now logged in!' });
 });
 
 router.post('/logout', (req, res) => {
-  if (req.session.logged_in) {
-    req.session.destroy(() => {
-      res.status(204).end();
-    });
-  } else {
-    res.status(404).end();
-  }
+  req.logout();
+  req.session.destroy(() => {
+    res.status(204).end();
+  });
 });
 
 module.exports = router;
+
