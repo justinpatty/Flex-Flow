@@ -1,14 +1,16 @@
 
-var workOutSelector = "muscle=";
-var apiUrl = "https://api.api-ninjas.com/v1/exercises?";
-var apiKey = "wP5vqzkikC7Gw3IK1nXbDg==bQIOoLezyk0YDbm4";
+var workOutSelector = "exercises";
+var apiUrl = "https://exercisedb.p.rapidapi.com/";
+var apiUrlEnd = "?limit=12"
+var apiKey = "39930ead85msh18dba88b34eaf58p1d635ajsne69f59bc6bb0";
 
 function exercises(workOutSelector, number) {
-    fetch(apiUrl + workOutSelector , {
+    console.log(apiUrl + workOutSelector + apiUrlEnd)
+    fetch(apiUrl + workOutSelector + apiUrlEnd , {
         method: "GET",
         headers: {
-            "X-Api-Key": apiKey,
-            "Content-Type": "application/json",
+            'X-RapidAPI-Key': apiKey,
+            'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
         },
     })
         .then(function (response) {
@@ -31,26 +33,35 @@ function exercises(workOutSelector, number) {
         .catch(function (error) {
             console.error("Error: " + error.message);
         });
+
+       
 }
-
 exercises(workOutSelector, 1);
-
+/*
+document.querySelector('main').addEventListener('click',(event)=>{
+    if (event.target.hasAttribute("data-exercise")) {
+        var id = event.target.getAttribute("data-exercise")
+        console.log("name="+id)
+        exercises("exercises/exercise/"+id, 2)
+    }
+}) 
+*/
 function workouts(data) {
     var main = document.querySelector("#exercise-cards");
     main.innerHTML = "";
 
-    main.setAttribute("class", "w-full md:w-1/3 mb-4 z-10 mt-5");
+    main.setAttribute("class", " m-auto grid grid-cols-3 w-full mb-4 z-10 mt-5 ml-5");
 
     for (var i = 0; i < data.length; i++) {
         console.log(i);
         
         var div = document.createElement("div");
-        div.setAttribute( "class","bg-blue-700 p-4 rounded-2xl shadow-lg" );
+        div.setAttribute( "class","bg-blue-700 p-4 rounded-2xl shadow-lg m-2" );
         main.appendChild(div);
 
         var img = document.createElement("img");
         img.setAttribute("class", "w-fit h-fit object-cover rounded-t-2xl");
-            img.setAttribute("src","../images/bicep curl.gif" );
+            img.setAttribute("src", data[i].gifUrl);
         img.setAttribute("alt", "Picture of workout");
         div.appendChild(img);
 
@@ -60,27 +71,38 @@ function workouts(data) {
 
         var h2 = document.createElement("h2");
         h2.setAttribute("class", "text-2xl font-semibold");
-        // switches between park name and campground name depending on the data
             h2.textContent = data[i].name;
         div2.appendChild(h2);
 
         var p = document.createElement("p");
-        p.setAttribute("class", "text-sm mt-2");
-        p.textContent = data[i].instructions;
+        p.setAttribute("class", "text-md mt-2");
+        p.textContent = "body part " + data[i].bodyPart;
         div.appendChild(p);
+
+        var p2 = document.createElement("p");
+        p2.setAttribute("class", "text-md mt-2");
+        p2.textContent = "muscle " + data[i].target;
+        div.appendChild(p2);
+
+        var p3 = document.createElement("p");
+        p3.setAttribute("class", "text-md mt-2");
+        p3.textContent = "equipment " + data[i].equipment;
+        div.appendChild(p3);
 
         var div3 = document.createElement("div");
         div3.setAttribute("class", "bg-blue-600 text-center p-2 rounded-b-2xl");
         div.appendChild(div3);
 
-        var a = document.createElement("a");
-        a.setAttribute("href", "#");
-        a.setAttribute("class", "text-white hover:underline");
-        a.textContent = "Learn More";
-        div3.appendChild(a)
+        var popup = document.createElement("button");
+        var popupdata = data[i].instructions;
+        popup.setAttribute("on-click", popupdata);
+        popup.setAttribute("role", 'button');
+        popup.setAttribute("class", "text-white hover:underline mr-3");
+        popup.textContent = "Learn More  ";
+        div3.appendChild(popup)
 
         var button = document.createElement("button");
-        button.setAttribute("data-exercise", data[i].name);
+        button.setAttribute("data-exercise", data[i].id);
         button.setAttribute("class", "bg-blue-800 text-white px-4 py-2 rounded-full mt-2 inline-block hover:bg-blue-900");
         button.textContent = "Add to Plan";
         div3.appendChild(button)
@@ -88,12 +110,27 @@ function workouts(data) {
 
 }
 
+document.querySelector('main').addEventListener('click',(event)=>{
+    if (event.target.hasAttribute("on-click")) {
+        var popupdata = event.target.getAttribute("on-click")
+        Popup(popupdata)
+    }
+})
 
+function Popup(data) {
+            var myDialog = document.createElement("dialog");
+            document.body.appendChild(myDialog)
+            var text = document.createTextNode(data);
+            myDialog.appendChild(text);
+            myDialog.showModal();
+          }
+
+       
 document.querySelector('main').addEventListener('click',(event)=>{
     if (event.target.hasAttribute("data-exercise")) {
-        var names = event.target.getAttribute("data-exercise")
-        console.log("name="+names)
-        exercises("name="+names, 2)
+        var id = event.target.getAttribute("data-exercise")
+        console.log("name="+id)
+        exercises("exercises/exercise/"+id, 2)
     }
 }) 
 
@@ -103,7 +140,7 @@ function myWorkoutPlan (data){
    // main.setAttribute("class", "w-full md:w-1/3 mb-4 z-10 mt-5");
     
         var div = document.createElement("div");
-        div.setAttribute( "class","bg-blue-700 p-4 rounded-2xl shadow-lg" );
+        div.setAttribute( "class","bg-blue-700 p-3 rounded-2xl mb-4 " );
         main.appendChild(div);
 
         var div2 = document.createElement("div");
@@ -112,8 +149,7 @@ function myWorkoutPlan (data){
 
         var h2 = document.createElement("h2");
         h2.setAttribute("class", "text-2xl font-semibold");
-        // switches between park name and campground name depending on the data
-            h2.textContent = data[0].name;
+            h2.textContent = data.name;
         div2.appendChild(h2);
     
 }
