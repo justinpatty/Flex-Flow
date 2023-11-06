@@ -1,4 +1,4 @@
-const { Cardio } = require("../../models/");
+const { Cardio } = require('../../models');
 
 // const getCardios = async (req, res) => {
   // use this as reference for Log and WeightTraining
