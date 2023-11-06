@@ -1,3 +1,4 @@
+
 var workOutSelector = "muscle=";
 var apiUrl = "https://api.api-ninjas.com/v1/exercises?";
 var apiKey = "wP5vqzkikC7Gw3IK1nXbDg==bQIOoLezyk0YDbm4";
@@ -39,6 +40,7 @@ function workouts(data) {
     main.innerHTML = "";
 
     main.setAttribute("class", "w-full md:w-1/3 mb-4 z-10 mt-5");
+
     for (var i = 0; i < data.length; i++) {
         console.log(i);
         
@@ -85,6 +87,7 @@ function workouts(data) {
    }
 
 }
+
 
 document.querySelector('main').addEventListener('click',(event)=>{
     if (event.target.hasAttribute("data-exercise")) {
