@@ -1,11 +1,11 @@
 const router = require('express').Router();
-const { Project, User } = require('../models/');
+const { User } = require('../models/');
 const withAuth = require('../utils/auth');
 // figure out what models we need here
 
 router.get('/', async (req, res) => {
   try {
-
+console.log("testing")
     // Pass serialized data and session flag into template
     res.render('home');
   } catch (err) {
@@ -14,16 +14,18 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/profile',withAuth, async (req, res) => {
-  const userData = await User.findByPk(req.session.user_id, {
-    attributes: { exclude: ['password'] },
-      include: [{ model: Post }],
-  });
+  // const userData = await User.findByPk(req.session.user_id, {
+  //   attributes: { exclude: ['password'] },
 
-  const user = userData.get({ plain: true });
-    res.render('profile', {
-      ...user,
-      logged_in: req.session.logged_in
-    });
+  // });
+
+  // const user = userData.get({ plain: true });
+    res.render('profile'
+    // , {
+    //   ...user,
+    //   logged_in: req.session.logged_in
+    // }
+    );
 });
 
 //examples of routes from mini project
