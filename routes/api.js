@@ -1,8 +1,8 @@
-var workOutSelector = "";
-var apiUrl = "https://api.api-ninjas.com/v1/exercises?muscle=";
+var workOutSelector = "muscle=";
+var apiUrl = "https://api.api-ninjas.com/v1/exercises?";
 var apiKey = "wP5vqzkikC7Gw3IK1nXbDg==bQIOoLezyk0YDbm4";
 
-function exercises(workOutSelector) {
+function exercises(workOutSelector, number) {
     fetch(apiUrl + workOutSelector , {
         method: "GET",
         headers: {
@@ -20,18 +20,22 @@ function exercises(workOutSelector) {
         })
         .then(function (data) {
             console.log(data);
-            workouts(data);
-            return data;
+            if (number == 1) {
+                 workouts(data);
+            }
+            if (number == 2) {
+                myWorkoutPlan(data);
+            }
         })
         .catch(function (error) {
             console.error("Error: " + error.message);
         });
 }
 
-exercises(workOutSelector);
+exercises(workOutSelector, 1);
 
 function workouts(data) {
-    var main = document.querySelector("main.cards");
+    var main = document.querySelector("#exercise-cards");
     main.innerHTML = "";
 
     main.setAttribute("class", "w-full md:w-1/3 mb-4 z-10 mt-5");
@@ -84,26 +88,20 @@ function workouts(data) {
 
 document.querySelector('main').addEventListener('click',(event)=>{
     if (event.target.hasAttribute("data-exercise")) {
-        console.log(event.target.getAttribute("data-exercise"))
+        var names = event.target.getAttribute("data-exercise")
+        console.log("name="+names)
+        exercises("name="+names, 2)
     }
 }) 
 
-function myWorkoutPlan (namesOfWorkouts){
-    var main = document.querySelector("main.cards");
-    main.setAttribute("class", "w-full md:w-1/3 mb-4 z-10 mt-5");
+function myWorkoutPlan (data){
+
+    var main = document.querySelector("#addedExercise");
+   // main.setAttribute("class", "w-full md:w-1/3 mb-4 z-10 mt-5");
     
-    for (var i = 0; i < data.length; i++) {
-        console.log(i);
-        
         var div = document.createElement("div");
         div.setAttribute( "class","bg-blue-700 p-4 rounded-2xl shadow-lg" );
         main.appendChild(div);
-
-        var img = document.createElement("img");
-        img.setAttribute("class", "w-fit h-fit object-cover rounded-t-2xl");
-            img.setAttribute("src","../images/bicep curl.gif" );
-        img.setAttribute("alt", "Picture of workout");
-        div.appendChild(img);
 
         var div2 = document.createElement("div");
         div2.setAttribute("class", "text-white p-4");
@@ -112,9 +110,7 @@ function myWorkoutPlan (namesOfWorkouts){
         var h2 = document.createElement("h2");
         h2.setAttribute("class", "text-2xl font-semibold");
         // switches between park name and campground name depending on the data
-            h2.textContent = data[i].name;
+            h2.textContent = data[0].name;
         div2.appendChild(h2);
-    }
-
-
+    
 }
