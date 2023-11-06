@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then((response) => {
                 if (response.status === 200) {
                     // Redirect to the user profile page on successful login
-                    window.location.href = '/profile';
+                    window.location.href = '/exercise';
                 } else {
                     // Display an error message to the user
                     alert('Login failed. Please check your email and password.');
@@ -50,7 +50,7 @@ const signupFormHandler = async (event) => {
       });
   
       if (response.ok) {
-        document.location.replace('/profile');
+        document.location.replace('/exercise');
       } else {
         alert(response.statusText);
       }

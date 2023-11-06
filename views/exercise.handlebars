@@ -1,0 +1,89 @@
+<body class="text-white">
+    <!-- Header -->
+    <header class="bg-blue-600 p-4 flex justify-between items-center">
+        <div class="text-2xl font-bold">FlexFlow</div>
+        <div class="space-x-4 mr-20">
+            <a href="#" class="hover:underline">Home</a>
+            <a href="#" class="hover:underline">Exercises</a>
+            <a href="#" class="hover:underline">My Plans</a>
+            <a href="#" class="hover:underline">My Profile</a>
+        </div>
+        <div class="flex items-center">
+            <a href="#" class="mr-4">
+                <i class="fas fa-user-circle text-2xl"></i>
+            </a>
+            <!-- Add user profile dropdown here -->
+        </div>
+    </header>
+
+    <!-- Banner Section -->
+    <section class="h-64 relative">
+        <img src="../public/assets/images/istockphoto-475386666-612x612.jpg" alt="Fitness Banner" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black opacity-70"></div>
+        <div class="absolute inset-0 flex flex-col justify-center items-center">
+            <h1 class="text-4xl font-extrabold">Get Fit</h1>
+            <a href="#" class="bg-blue-600 text-white px-6 py-2 rounded-full mt-4 hover:bg-blue-700">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Exercise Categories -->
+    <section id="searchButton" class=" py-8">
+        <div class="container mx-auto">
+            <div class="flex space-x-4 overflow-x-auto">
+                <button id="cardio" class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700">Cardio</button>
+                <button id="arms" class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700">arms</button>
+                <button id="legs" class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700">legs</button>
+                <button id="chest" class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700">chest</button>
+                <!-- Add more categories here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercise List -->
+    <section class="">
+        <div class="container mx-auto flex flex-wrap -mx-4 p-7">
+            <!-- Exercise Card Example (Repeat this for multiple exercises) 
+            <div class="w-full md:w-1/3 mb-4 z-10 mt-5">
+                <div class="bg-blue-700 p-4 rounded-2xl shadow-lg">
+                    <img src="../public/assets/images/bicep curl.gif" alt="Exercise Image" class="w-fit h-fit object-cover rounded-t-2xl">
+                    <div class="text-white p-4">
+                        <h2 class="text-2xl font-semibold">Bicep Curl</h2>
+                        <p class="text-sm mt-2">The seated bicep curl is a bicep-targeting exercise performed while sitting, providing stability and isolating the biceps for stronger and more defined arms.
+                        </p>
+                    </div>
+                    <div class="bg-blue-600 text-center p-2 rounded-b-2xl">
+                        <a href="#" class="text-white hover:underline">Learn More</a>
+                        <a href="#" class="bg-blue-800 text-white px-4 py-2 rounded-full mt-2 inline-block hover:bg-blue-900">Add to Plan</a>
+                    </div>
+                </div>
+                
+            </div>
+            -->
+
+             <main id="exercise-cards"></main>
+           
+            <!-- Repeat the exercise card for other exercises -->
+        </div>
+    </section>
+
+    <!-- Workout Plan Section -->
+    <aside class="bg-black p-4 fixed top-0 right-0 h-screen w-1/4 overflow-y-auto z-0">
+        <button id="WorkoutListShow" class="text-2xl font-bold mb-4">My Workout Plan</button>
+        <div class="p-4 border border-black rounded-lg">
+            <main id="addedExercise"></main>
+            <!-- Added exercises will go here -->
+        </div>
+    </aside>
+
+    <!-- Footer -->
+    <footer class=" text-white py-4 text-center">
+        <div class="container mx-auto">
+            <ul class="flex justify-center space-x-4">
+                <li><a href="#" class="hover:underline">About Us</a></li>
+                <li><a href="#" class="hover:underline">Contact</a></li>
+                <li><a href="#" class="hover:underline">Privacy Policy</a></li>
+            </ul>
+            <div class="mt-4">© 2023 FlexFlow</div>
+        </div>
+    </footer>
+    <script src="../routes/api.js"></script>
