@@ -1,13 +1,12 @@
-const {WeightTraining} = require('../../models/');
-
-router.get("/", async (req, res) => {
+const { WeightTraining } = require('../../models');
+const getWeightTrainings = async (req, res) => {
   try {
     const weightTrainings = await WeightTraining.findAll();
     res.json(weightTrainings);
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
-})
+}
 
 router.post("/", async (req, res) => {
   const { title, description, reps, sets } = req.body;

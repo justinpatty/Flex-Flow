@@ -1,4 +1,4 @@
-const {Log} = require('../../models');
+const { Log } = require('../../models');
 
 router.get("/", async (req, res) => {
   try {
