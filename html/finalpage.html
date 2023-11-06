@@ -42,12 +42,13 @@
     </section>
 
     <!-- Exercise Categories -->
-    <section class=" py-8">
+    <section id="searchButton" class=" py-8">
         <div class="container mx-auto">
             <div class="flex space-x-4 overflow-x-auto">
-                <a href="#" class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700">Cardio</a>
-                <a href="#" class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700">Strength</a>
-                <a href="#" class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700">Flexibility</a>
+                <button id="cardio" class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700">Cardio</button>
+                <button id="arms" class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700">arms</button>
+                <button id="legs" class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700">legs</button>
+                <button id="chest" class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700">chest</button>
                 <!-- Add more categories here -->
             </div>
         </div>
@@ -55,8 +56,8 @@
 
     <!-- Exercise List -->
     <section class="">
-        <div class="container mx-auto flex flex-wrap -mx-4 p-8">
-            <!-- Exercise Card Example (Repeat this for multiple exercises) -->
+        <div class="container mx-auto flex flex-wrap -mx-4 p-7">
+            <!-- Exercise Card Example (Repeat this for multiple exercises) 
             <div class="w-full md:w-1/3 mb-4 z-10 mt-5">
                 <div class="bg-blue-700 p-4 rounded-2xl shadow-lg">
                     <img src="../public/assets/images/bicep curl.gif" alt="Exercise Image" class="w-fit h-fit object-cover rounded-t-2xl">
@@ -72,6 +73,7 @@
                 </div>
                 
             </div>
+            -->
 
              <main id="exercise-cards"></main>
            
@@ -81,7 +83,7 @@
 
     <!-- Workout Plan Section -->
     <aside class="bg-black p-4 fixed top-0 right-0 h-screen w-1/4 overflow-y-auto z-0">
-        <h2 class="text-2xl font-bold mb-4">My Workout Plan</h2>
+        <button id="WorkoutListShow" class="text-2xl font-bold mb-4">My Workout Plan</button>
         <div class="p-4 border border-black rounded-lg">
             <main id="addedExercise"></main>
             <!-- Added exercises will go here -->
