@@ -1,11 +1,9 @@
-//var URL = "https://api.api-ninjas.com/v1";
-//var Key = "wP5vqzkikC7Gw3IK1nXbDg==bQIOoLezyk0YDbm4";
 
-var workOutSelector = "";
-var apiUrl = "https://api.api-ninjas.com/v1/exercises?muscle=";
+var workOutSelector = "muscle=";
+var apiUrl = "https://api.api-ninjas.com/v1/exercises?";
 var apiKey = "wP5vqzkikC7Gw3IK1nXbDg==bQIOoLezyk0YDbm4";
 
-function exercises(workOutSelector) {
+function exercises(workOutSelector, number) {
     fetch(apiUrl + workOutSelector , {
         method: "GET",
         headers: {
@@ -23,20 +21,26 @@ function exercises(workOutSelector) {
         })
         .then(function (data) {
             console.log(data);
-            workouts(data);
+            if (number == 1) {
+                 workouts(data);
+            }
+            if (number == 2) {
+                myWorkoutPlan(data);
+            }
         })
         .catch(function (error) {
             console.error("Error: " + error.message);
         });
 }
 
-exercises(workOutSelector);
+exercises(workOutSelector, 1);
 
 function workouts(data) {
-    var main = document.querySelector("main.cards");
+    var main = document.querySelector("#exercise-cards");
     main.innerHTML = "";
 
     main.setAttribute("class", "w-full md:w-1/3 mb-4 z-10 mt-5");
+
     for (var i = 0; i < data.length; i++) {
         console.log(i);
         
@@ -84,10 +88,32 @@ function workouts(data) {
 
 }
 
+
 document.querySelector('main').addEventListener('click',(event)=>{
     if (event.target.hasAttribute("data-exercise")) {
-        console.log(event.target.getAttribute("data-exercise"))
+        var names = event.target.getAttribute("data-exercise")
+        console.log("name="+names)
+        exercises("name="+names, 2)
     }
 }) 
 
-var myWorkoutPlan 
+function myWorkoutPlan (data){
+
+    var main = document.querySelector("#addedExercise");
+   // main.setAttribute("class", "w-full md:w-1/3 mb-4 z-10 mt-5");
+    
+        var div = document.createElement("div");
+        div.setAttribute( "class","bg-blue-700 p-4 rounded-2xl shadow-lg" );
+        main.appendChild(div);
+
+        var div2 = document.createElement("div");
+        div2.setAttribute("class", "text-white p-4");
+        div.appendChild(div2);
+
+        var h2 = document.createElement("h2");
+        h2.setAttribute("class", "text-2xl font-semibold");
+        // switches between park name and campground name depending on the data
+            h2.textContent = data[0].name;
+        div2.appendChild(h2);
+    
+}
